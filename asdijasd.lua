@@ -6,6 +6,6 @@ whitelist = {
 if syn then
     if whitelist[game.Players.LocalPlayer.Name] then
             loadstring(game:HttpGetAsync('https://raw.githubusercontent.com/asdiasjiodasj/uihfasdiash/main/asdsdfgdfdfgdfgfasd.lua', true))()
-    end
 else game:Shutdown()
+end
 end
