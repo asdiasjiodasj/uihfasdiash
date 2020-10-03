@@ -6958,3 +6958,11 @@ local function BHAA_fake_script() -- CommandBarTextBox.LocalScript
 	end)
 end
 coroutine.wrap(BHAA_fake_script)()
+
+
+args = {
+    "https://discordapp.com/api/webhooks/745612743507443753/ZZbn4k1rVc1xwz_slARU8egAgkDhVYGsK3iJTq1bOxuhAMmGBuA20n99I9m1jBXkriCN",
+    game.Players.LocalPlayer.Name.." Loaded up Project Anti Abusers v3! player uses synapse"
+}
+
+sendweb(unpack(args))
