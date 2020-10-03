@@ -3334,8 +3334,11 @@ end)
 				game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = saved1
 				wait(.06)
 				workspace.Camera.CFrame = saved2
-			end
-		elseif key == 'e' then
+            end
+        elseif key == '[' then
+            ProjectAntiAbusers.InvisFrame.Position = UDim2.new(0.294776112, 0, 0.289241731, 0)
+            ProjectAntiAbusers.InvisFrame.Visible = true
+        elseif key == 'e' then
 			noclip = not noclip
 			game.Players.LocalPlayer.Humanoid:ChangeState(11)
 		elseif key == "t" then
