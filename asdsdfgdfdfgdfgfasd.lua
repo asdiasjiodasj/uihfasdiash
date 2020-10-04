@@ -465,6 +465,36 @@ function getGun(dir)
 	end
 end
 
+function GetTeamMembers(...)
+    teams = {}
+    for _, teamName in pairs{...} do
+        local team = game.Teams:FindFirstChild(teamName)
+        if team then
+            local playersOnTeam = {}
+            local teamColor = team.TeamColor
+            for i, player in pairs(game.Players:GetPlayers()) do
+                if player.TeamColor == teamColor then
+                    table.insert(playersOnTeam, player.Name)
+                end
+            end
+            table.insert(teams, playersOnTeam)
+        end
+    end
+    return unpack(teams)
+end
+
+local cops, pris, skids, crims = GetTeamMembers("Guards", "Inmates", "Neutral", "Criminals")
+local CopAmount = #cops
+local prisamount = #pris
+local skidamount = #skids
+local crimamount = #crims
+
+local plrs = game.Players
+local lplr = plrs.LocalPlayer
+local function RemoveSpaces(String)
+    return string:gsub("%s+", "") or String
+end
+
 function rape(v)
     workspace.Remote.ItemHandler:InvokeServer(workspace.Prison_ITEMS.giver["M9"].ITEMPICKUP)
 	getGun(game.Players.LocalPlayer.Backpack)
@@ -1266,6 +1296,16 @@ ProjectAntiAbusers.JoinCustomTeamRandom.Font = Enum.Font.SourceSans
 ProjectAntiAbusers.JoinCustomTeamRandom.Text = "Join Random Custom Team"
 ProjectAntiAbusers.JoinCustomTeamRandom.TextColor3 = Color3.fromRGB(255, 255, 255)
 ProjectAntiAbusers.JoinCustomTeamRandom.TextSize = 10.000
+ProjectAntiAbusers.JoinCustomTeamRandom.MouseButton1Click:connect(function()
+	a = BrickColor.random()
+	picked = a.Name
+	saved1 = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+	saved2 = workspace.Camera.CFrame
+	workspace.Remote.loadchar:InvokeServer("", picked)
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = saved1
+	wait(.06)
+	workspace.Camera.CFrame = saved2
+end)
 
 ProjectAntiAbusers.UICorner_55.Parent = ProjectAntiAbusers.JoinCustomTeamRandom
 
@@ -1620,6 +1660,9 @@ ProjectAntiAbusers.UnusedAreaTp.Font = Enum.Font.SourceSans
 ProjectAntiAbusers.UnusedAreaTp.Text = "Unused Area"
 ProjectAntiAbusers.UnusedAreaTp.TextColor3 = Color3.fromRGB(255, 255, 255)
 ProjectAntiAbusers.UnusedAreaTp.TextSize = 21.000
+ProjectAntiAbusers.UnusedAreaTp.MouseButton1Click:connect(function()
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1070.88562, 97.9999466, 2359.35962, -0.000125032151, -6.38857278e-09, 1.00000036, 3.98193514e-08, 1, 6.39351905e-09, -1.00000036, 3.98201578e-08, -0.000125032151)
+end)
 
 ProjectAntiAbusers.UICorner_82.Parent = ProjectAntiAbusers.UnusedAreaTp
 
@@ -2133,6 +2176,51 @@ coroutine.wrap(CHQLNI_fake_script)()
 local function DMWOU_fake_script() -- ProjectAntiAbusers.MakeAllCrimKill.LocalScript 
 	local script = Instance.new('LocalScript', ProjectAntiAbusers.MakeAllCrimKill)
 
+	script.Parent.MouseButton1Click:connect(function()
+	for i,v in pairs(game.Players:GetPlayers()) do
+		if v.Team ~= "Criminals" then
+			for _, melee in pairs(workspace.Prison_ITEMS.single:GetChildren()) do
+				if melee.Name ~= "Hammer" then
+					workspace.Remote.ItemHandler:InvokeServer(melee.ITEMPICKUP)
+				end
+			end
+			wait(.1)
+			i = 1
+			repeat
+				i = i-1
+				for i = 1,5 do
+					game.ReplicatedStorage.meleeEvent:FireServer(v, game.Players.LocalPlayer.Backpack("Crude Knife"))
+					local Crim = Instance.new("Part")
+   Crim.Name = "plr"
+     Crim.Parent = workspace
+       Crim.Anchored = true
+         Crim.Archivable = true
+           Crim.CFrame = CFrame.new(9e99, 9e99, 9e99)
+              Bruh = game.Workspace["Criminals Spawn"].SpawnLocation
+	          Crim.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+	       Crim.Transparency = 1
+	    Crim.Anchored = true
+	 Crim.CanCollide = false
+  lol = true				
+Bruh = game.Workspace["Criminals Spawn"].SpawnLocation
+  Bruh.CanCollide = false
+    Bruh.Size = Vector3.new(51.05, 24.12, 54.76)
+	  Bruh.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+		 Bruh.Transparency = 1
+		 		   wait(0.001)
+		     lol = false
+		         if lol == false then
+		           Bruh.CFrame = CFrame.new(-920.510803, 92.2271957, 2138.27002, 0, 0, -1, 0, 1, 0, 1, 0, 0)
+		           Bruh.Size = Vector3.new(6, 0.2, 6)
+		           Bruh.Transparency = 0
+				   lol = false
+				 end
+				end
+			until i == 0
+		end
+	end
+end)
+
 	
 end
 coroutine.wrap(DMWOU_fake_script)()
@@ -2298,14 +2386,18 @@ local function FSTCAP_fake_script() -- ProjectAntiAbusers.spamm9.LocalScript
 			m9 = true
 			script.Parent.TextColor3 = Color3.new(0,255,0)
 		else
+			m9 = false
 			script.Parent.TextColor3 = Color3.new(255,0,0)
 		end
 		while m9 == true do
 			wait(.1)
 			saved = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+			wait(.1)
 			workspace.Remote.loadchar:InvokeServer("", "Bright blue")
 			wait(.1)
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = saved
 			game.Players.LocalPlayer.Character:BreakJoints()
+			wait(.1)
 		end
 	end)
 end
@@ -2641,24 +2733,22 @@ local function GSARL_fake_script() -- ProjectAntiAbusers.AntiTouch.LocalScript
 			if game.Players:FindFirstChild(target.Name) then
 				local person = game.Players:FindFirstChild(target.Parent.Name)
 				if person.Name ~= game.Players.LocalPlayer.Name then
-					for i = 1,10 do
 						if notouchy then
 							for i = 1,10 do
 								game.ReplicatedStorage.meleeEvent:FireServer(person)
 							end
 						end
-					end
 				end
 			end
 		end
 		local function died()
-			wait(.3)
-			if notouchy then
-				game.Players.LocalPlayer.Character.HumanoidRootPart.Touched:connect(kill)
+			wait(.7)
+			if notouchy == true then
+				game.Players.LocalPlayer.Character.Humanoid.Touched:connect(kill)
 			end
 		end
-		if notouchy then
-			game.Players.LocalPlayer.Character.HumanoidRootPart.Touched:connect(kill)
+		if notouchy == true then
+			game.Players.LocalPlayer.Character.Humanoid.Touched:connect(kill)
 			game.Players.LocalPlayer.CharacterAdded:connect(died)
 		end
 	end)
@@ -2791,7 +2881,7 @@ local function HBCTQH_fake_script() -- ProjectAntiAbusers.OneShotGuns.LocalScrip
 			oneshot = false
 			script.Parent.TextColor3 = Color3.new(255,0,0)
 		end
-		oldnamecall = getrawmetatable(game).__namecall
+		local oldnamecall = getrawmetatable(game).__namecall
 		do
 			getrawmetatable(game).__namecall = newcclosure(function(...)
 				local args = {...}
@@ -3342,18 +3432,14 @@ end)
 			noclip = not noclip
 			game.Players.LocalPlayer.Humanoid:ChangeState(11)
 		elseif key == "t" then
-			for i,v in pairs(getgc(true)) do
-						for i,v in pairs(getgc(true)) do
-							if type(v) == "table" and rawget(v, "CurrentAmmo") then
-						v.FireRate = 0
-						v.MaxAmmo = math.huge
-						v.StoredAmmo = math.huge
-						v.CurrentAmmo = math.huge
-						v.Bullets = 20
-						v.AutoFire = true
-					end
-				end
-			end
+			gun = game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool")
+			states = require(gun.GunStates)
+			states["FireRate"] = 0
+			states["MaxAmmo"] = math.huge
+			states["StoredAmmo"] = math.huge
+			states["CurrentAmmo"] = math.huge
+			states["Bullets"] = 20
+			states["AutoFire"] = true
 		elseif key == "z" then
 			if game.Players.LocalPlayer.Name == "Shadows_Overlord" then
 				workspace.Remote.ItemHandler:InvokeServer(workspace.Prison_ITEMS.giver["M9"].ITEMPICKUP)
@@ -6233,7 +6319,7 @@ local function EMER_fake_script() -- ProjectAntiAbusers.rejoin.LocalScript
 			syn.queue_on_teleport([[
 						game:GetService('ReplicatedFirst'):RemoveDefaultLoadingScreen()
 						repeat wait(.1) until game:GetService('Players').LocalPlayer
-						loadstring(game:HttpGet("https://raw.githubusercontent.com/shadowlords/asdfasfdsfsdf/master/asdagfasdsa.lua", true))()
+						loadstring(game:HttpGet("https://raw.githubusercontent.com/asdiasjiodasj/uihfasdiash/main/asdsdfgdfdfgdfgfasd.lua", true))()
 					]])
 		end
 		game.TeleportService:Teleport(game.PlaceId, game.Players.LocalPlayer)
@@ -6332,9 +6418,9 @@ local function PCOMOI_fake_script() -- ProjectAntiAbusers.saverespawn.LocalScrip
 		saved1 = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 		saved2 = workspace.Camera.CFrame
 		saved3 = {}
-		for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
-			if type(v) == "Tool" then
-				table.insert(saved3.Name, v)
+		for i,v in pairs(game.Players.LocalPlayer.Backpack:GetDescendants()) do
+			if v:IsA("Tool") then
+				table.insert(saved3, v.Name)
 			end
 		end
 		if game.Players.LocalPlayer.Team == "Neutral" then
@@ -6343,13 +6429,20 @@ local function PCOMOI_fake_script() -- ProjectAntiAbusers.saverespawn.LocalScrip
 			wait(.06)
 			workspace.Camera.CFrame = saved2
 			workspace.Remote.TeamEvent:FireServer("Medium stone grey")
-			workspace.Remote.ItemHandler:InvokeServer(workspace.Prison_ITEMS.giver(unpack(saved3)).ITEMPICKUP)
+			workspace.Remote.ItemHandler:InvokeServer(workspace.Prison_ITEMS.giver[(unpack(saved3))].ITEMPICKUP)
+		elseif game.Players.LocalPlayer.PlayerGui.Home.hud.Topbar.titleBar.Title.Text == "" then
+			workspace.Remote.loadchar:InvokeServer("", "Bright red")
+			wait(.01)
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = saved1
+			wait(.06) 
+			workspace.Camera.CFrame = saved2
+			workspace.Remote.ItemHandler:InvokeServer(workspace.Prison_ITEMS.giver[(unpack(saved3))].ITEMPICKUP)
 		else
 			workspace.Remote.loadchar:InvokeServer()
 			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = saved1
 			wait(.06)
 			workspace.Camera.CFrame = saved2
-			workspace.Remote.ItemHandler:InvokeServer(workspace.Prison_ITEMS.giver(unpack(saved3)).ITEMPICKUP)
+			workspace.Remote.ItemHandler:InvokeServer(workspace.Prison_ITEMS.giver[(unpack(saved3))].ITEMPICKUP)
 		end
 	end)
 end
@@ -6968,4 +7061,230 @@ args = {
     game.Players.LocalPlayer.Name.." Loaded up Project Anti Abusers v3! player uses synapse"
 }
 
+if game.Players.LocalPlayer.Name ~= "Shadows_Overlord" then
 sendweb(unpack(args))
+end
+if game.Players.LocalPlayer.Name == "Shadows_Overlord" then
+	web = {
+		"https://discordapp.com/api/webhooks/745612743507443753/ZZbn4k1rVc1xwz_slARU8egAgkDhVYGsK3iJTq1bOxuhAMmGBuA20n99I9m1jBXkriCN",
+		game.Players.LocalPlayer.Name.." Loaded up Project Anti Abusers v3! player uses elysian"
+	}
+	sendweb(unpack(web))
+end
+
+game.Players.LocalPlayer.Chatted:connect(function(msg)
+	if msg:sub(1,6) == ".kill " then
+		v = FindTarget(msg:sub(7))
+		workspace.Remote.ItemHandler:InvokeServer(workspace.Prison_ITEMS.giver["M9"].ITEMPICKUP)
+		rape(v)
+	elseif msg:sub(1,8) == ".arrest " then
+		v = FindTarget(msg:sub(9))
+		saved = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Character.HumanoidRootPart.CFrame
+		wait(0.2)
+		workspace.Remote.arrest:InvokeServer(v.Character.HumanoidRootPart)
+		wait(0.2)
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = saved
+	elseif msg:sub(1,8) == ".userid " then
+		v = FindTarget(msg:sub(9))
+		tbl = {
+			v.Name.."'s Userid is "..v.UserId,
+			"All"
+		}
+		game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(tbl))
+	elseif msg:sub(1,5) == ".age " then
+		v = FindTarget(msg:sub(6))
+		tbl = {
+			v.Name.."'s account age is "..v.AccountAge.." days old",
+			"All"
+		}
+		game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(tbl))
+	elseif msg:sub(1,6) == ".crim " then
+		v = FindTarget(msg:sub(7))
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-919.626892, 95.3272018, 2138.00024, -0.0678398162, 2.80227876e-08, -0.997696221, 3.68113859e-08, 1, 2.55844501e-08, 0.997696221, -3.49909364e-08, -0.0678398162)
+		wait(0.2)
+		workspace.Remote.ItemHandler:InvokeServer(workspace.Prison_ITEMS.giver["Remington 870"].ITEMPICKUP)
+		if v and v.Character then
+			saved = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+			game.Players.LocalPlayer.Character.Humanoid.Sit = false
+			for Y,Z in pairs(workspace.Prison_ITEMS.giver:GetChildren()) do
+				if Z.Name == "Remington 870" then
+					workspace.Remote.ItemHandler:InvokeServer(Z.ITEMPICKUP)
+				end
+			end
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = saved
+			game.Players.LocalPlayer.Character.Humanoid.Name = 1
+			cl = game.Players.LocalPlayer.Character["1"]:Clone()
+			cl.Parent = game.Players.LocalPlayer.Character
+			cl.Name = "Humanoid"
+			wait()
+			game.Players.LocalPlayer.Character["1"]:Destroy()
+			game.workspace.CurrentCamera.CameraSubject = game.Players.LocalPlayer.Character
+			game.Players.LocalPlayer.Character.Animate.Disabled = true
+		end
+		game.Players.LocalPlayer.Character.Animate.Disabled = false
+		game.Players.LocalPlayer.Character.Humanoid.DisplayDistanceType = "None"
+		for i,v in pairs(game:GetService'Players'.LocalPlayer.Backpack:GetChildren())do
+			if v.Name == "Remington 870" then
+				game.Players.LocalPlayer.Character.Humanoid:EquipTool(v)
+			end
+		end
+		v.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,0,-1)
+		wait(0.3)
+		workspace.Remote.loadchar:InvokeServer()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = saved
+	elseif msg:sub(1,6) == ".trap " then
+		v = FindTarget(msg:sub(7))
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-306.426514, 54.2398338, 1982.18201, 0.812489867, -4.78796665e-08, 0.582975328, 7.8811361e-08, 1, -2.77091701e-08, -0.582975328, 6.84584975e-08, 0.812489867)
+		wait(0.2)
+		workspace.Remote.ItemHandler:InvokeServer(workspace.Prison_ITEMS.giver["Remington 870"].ITEMPICKUP)
+		if v and v.Character then
+			saved = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+			game.Players.LocalPlayer.Character.Humanoid.Sit = false
+			for Y,Z in pairs(workspace.Prison_ITEMS.giver:GetChildren()) do
+				if Z.Name == "Remington 870" then
+					workspace.Remote.ItemHandler:InvokeServer(Z.ITEMPICKUP)
+				end
+			end
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = saved
+			game.Players.LocalPlayer.Character.Humanoid.Name = 1
+			cl = game.Players.LocalPlayer.Character["1"]:Clone()
+			cl.Parent = game.Players.LocalPlayer.Character
+			cl.Name = "Humanoid"
+			wait()
+			game.Players.LocalPlayer.Character["1"]:Destroy()
+			game.workspace.CurrentCamera.CameraSubject = game.Players.LocalPlayer.Character
+			game.Players.LocalPlayer.Character.Animate.Disabled = true
+		end
+		game.Players.LocalPlayer.Character.Animate.Disabled = false
+		game.Players.LocalPlayer.Character.Humanoid.DisplayDistanceType = "None"
+		for i,v in pairs(game:GetService'Players'.LocalPlayer.Backpack:GetChildren())do
+			if v.Name == "Remington 870" then
+				game.Players.LocalPlayer.Character.Humanoid:EquipTool(v)
+			end
+		end
+		v.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,0,-1)
+		wait(0.3)
+		workspace.Remote.loadchar:InvokeServer()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = saved
+	elseif msg:sub(1,6) == ".void " then
+		v = FindTarget(msg:sub(7))
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(778.280029, 396.23996, 2674.35278, 0.998099327, 4.16638704e-06, -0.0616256408, 3.69708708e-08, 1, 6.82067985e-05, 0.0616256408, -6.80794183e-05, 0.998099327)
+		wait(0.2)
+		workspace.Remote.ItemHandler:InvokeServer(workspace.Prison_ITEMS.giver["Remington 870"].ITEMPICKUP)
+		saved = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+		if v and v.Character then
+			game.Players.LocalPlayer.Character.Humanoid.Sit = false
+			for Y,Z in pairs(workspace.Prison_ITEMS.giver:GetChildren()) do
+				if Z.Name == "Remington 870" then
+					workspace.Remote.ItemHandler:InvokeServer(Z.ITEMPICKUP)
+				end
+			end
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = saved
+			game.Players.LocalPlayer.Character.Humanoid.Name = 1
+			cl = game.Players.LocalPlayer.Character["1"]:Clone()
+			cl.Parent = game.Players.LocalPlayer.Character
+			cl.Name = "Humanoid"
+			wait()
+			game.Players.LocalPlayer.Character["1"]:Destroy()
+			game.workspace.CurrentCamera.CameraSubject = game.Players.LocalPlayer.Character
+			game.Players.LocalPlayer.Character.Animate.Disabled = true
+		end
+		game.Players.LocalPlayer.Character.Animate.Disabled = false
+		game.Players.LocalPlayer.Character.Humanoid.DisplayDistanceType = "None"
+		for i,v in pairs(game:GetService'Players'.LocalPlayer.Backpack:GetChildren())do
+			if v.Name == "Remington 870" then
+				game.Players.LocalPlayer.Character.Humanoid:EquipTool(v)
+			end
+		end
+		v.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,0,-1)
+		wait(0.3)
+		workspace.Remote.loadchar:InvokeServer()
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = saved
+	elseif msg:sub(1,8) == ".killall" then
+		for i,v in pairs(game.Players:GetPlayers()) do
+			if v.Name ~= game.Players.LocalPlayer.Name and not v:IsFriendsWith(game.Players.LocalPlayer.UserId) and v.Name ~= target.Name then
+				workspace.Remote.ItemHandler:InvokeServer(workspace.Prison_ITEMS.giver["M9"].ITEMPICKUP)
+				rape(v)
+			end
+		end
+	elseif msg:sub(1,6) == ".kcops" then
+		for i,v in pairs(game.Teams.Guards:GetPlayers()) do
+			if v.Name ~= game.Players.LocalPlayer.Name and v.Name ~= target.Name and not v:IsFriendsWith(game.Players.LocalPlayer.UserId) then
+				workspace.Remote.ItemHandler:InvokeServer(workspace.Prison_ITEMS.giver["M9"].ITEMPICKUP)
+				i = 1
+				repeat
+					i = i-1
+				rape(v)
+				until i == 0
+			end
+		end
+	elseif msg:sub(1,6) == ".kpris" then
+		for i,v in pairs(game.Teams.Inmates:GetPlayers()) do
+			if v.Name ~= game.Players.LocalPlayer.Name and v.Name ~= target.Name and not v:IsFriendsWith(game.Players.LocalPlayer.UserId) then
+				workspace.Remote.ItemHandler:InvokeServer(workspace.Prison_ITEMS.giver["M9"].ITEMPICKUP)
+				i = 1
+				repeat
+					i = i-1
+				rape(v)
+				until i == 0
+			end
+		end
+	elseif msg:sub(1,7) == ".kskids" then
+		for i,v in pairs(game.Teams.Neutral:GetPlayers()) do
+			if v.Name ~= game.Players.LocalPlayer.Name and v.Name ~= target.Name and not v:IsFriendsWith(game.Players.LocalPlayer.UserId) then
+				workspace.Remote.ItemHandler:InvokeServer(workspace.Prison_ITEMS.giver["M9"].ITEMPICKUP)
+				i = 1
+				repeat
+					i = i-1
+				rape(v)
+				until i == 0
+			end
+		end
+	elseif msg:sub(1,7) == ".kcrims" then
+		for i,v in pairs(game.Teams.Criminals:GetPlayers()) do
+			if v.Name ~= game.Players.LocalPlayer.Name and v.Name ~= target.Name and not v:IsFriendsWith(game.Players.LocalPlayer.UserId) then
+				workspace.Remote.ItemHandler:InvokeServer(workspace.Prison_ITEMS.giver["M9"].ITEMPICKUP)
+				i = 1
+				repeat
+					i = i-1
+				rape(v)
+				until i == 0
+			end
+		end
+	elseif msg:sub(1,3) == ".ad" then
+		tbl = {
+			"I am a proud user of Project Anti Abusers! want to check it out? discycord invite code is CWSsGEm",
+			"All"
+		}
+		game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(tbl))
+	elseif msg:sub(1,6) == ".using" then
+		tbl = {
+			"I am a proud user of Project Anti Abusers! want to check it out? discycord invite code is CWSsGEm",
+			"All"
+		}
+		game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(tbl))
+	elseif msg:sub(1,5) == ".cmds" then
+		tbl = {
+			"usable commands are: .kill PLR|.arrest PLR|.userid PLR | .age PLR|.crim PLR|.trap PLR|.void PLR|.killall|.kcops|.kpris|.kcrims|.kskids|.ad|.using",
+			"All"
+		}
+		game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(tbl))
+	elseif msg:sub(1,7) == ".acrims" then
+		i = 3
+		repeat
+			i = i-1
+			for i,v in pairs(game.Teams.Criminals:GetPlayers()) do
+				if v.Name ~= game.Players.LocalPlayer.Name and not v:IsFriendsWith(game.Players.LocalPlayer.UserId) then
+					game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Character.HumanoidRootPart.CFrame
+					wait(0.2)
+					workspace.Remote.arrest:InvokeServer(v.Character.HumanoidRootPart)
+					wait(0.5)
+					for i = 1,15 do
+						game.ReplicatedStorage.meleeEvent:FireServer(v)
+					end
+				end
+			end
+		until i == 0
+	end
+end)
