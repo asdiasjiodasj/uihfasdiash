@@ -3,7 +3,8 @@ whitelist = {
     ["ArticGamerNL"] = true,
     ["Apple_hollyday"] = true,
     ["Code_Leaked"] = true,
-    ["RxPoweringModeration"] = true
+    ["RxPoweringModeration"] = true,
+    ["SuperAngelo177"] = true
 }
 
 if syn then
