@@ -2974,15 +2974,7 @@ local function JUSQF_fake_script() -- ProjectAntiAbusers.OnePunch.LocalScript
 	local script = Instance.new('LocalScript', ProjectAntiAbusers.OnePunch)
 
 	onep = false
-	script.Parent.MouseButton1Click:connect(function()
-		if onep == false then
-			onep = true
-			script.Parent.TextColor3 = Color3.new(0,255,0)
-		else
-			onep = false
-			script.Parent.TextColor3 = Color3.new(255,0,0)
-		end
-		local oldnamecall = getrawmetatable(game).__namecall
+	local oldnamecall = getrawmetatable(game).__namecall
 		do
 			getrawmetatable(game).__namecall = newcclosure(function(...)
 			local args = {...}
@@ -2998,6 +2990,14 @@ local function JUSQF_fake_script() -- ProjectAntiAbusers.OnePunch.LocalScript
 				return oldnamecall(unpack(args))
 			end)
 			
+		end
+	script.Parent.MouseButton1Click:connect(function()
+		if onep == false then
+			onep = true
+			script.Parent.TextColor3 = Color3.new(0,255,0)
+		else
+			onep = false
+			script.Parent.TextColor3 = Color3.new(255,0,0)
 		end
 	end)
 end
@@ -3159,15 +3159,7 @@ local function HBCTQH_fake_script() -- ProjectAntiAbusers.OneShotGuns.LocalScrip
 	local script = Instance.new('LocalScript', ProjectAntiAbusers.OneShotGuns)
 
 	oneshot = false
-	script.Parent.MouseButton1Click:connect(function()
-		if oneshot == false then
-			oneshot = true
-			script.Parent.TextColor3 = Color3.new(0,255,0)
-		else
-			oneshot = false
-			script.Parent.TextColor3 = Color3.new(255,0,0)
-		end
-		local oldnamecall = getrawmetatable(game).__namecall
+	local oldnamecall = getrawmetatable(game).__namecall
 		do
 			getrawmetatable(game).__namecall = newcclosure(function(...)
 				local args = {...}
@@ -3182,6 +3174,14 @@ local function HBCTQH_fake_script() -- ProjectAntiAbusers.OneShotGuns.LocalScrip
 				end
 				return oldnamecall(unpack(args))
 			end)	
+		end
+	script.Parent.MouseButton1Click:connect(function()
+		if oneshot == false then
+			oneshot = true
+			script.Parent.TextColor3 = Color3.new(0,255,0)
+		else
+			oneshot = false
+			script.Parent.TextColor3 = Color3.new(255,0,0)
 		end
 	end)
 end
@@ -7387,7 +7387,6 @@ game.Players.LocalPlayer.Chatted:connect(function(msg)
             rape(target)
             wait()
         until target == nil
-    end
 	elseif msg:sub(1,8) == ".arrest " then
 		v = FindTarget(msg:sub(9))
 		saved = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
