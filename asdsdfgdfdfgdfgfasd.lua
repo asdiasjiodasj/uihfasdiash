@@ -1,6 +1,10 @@
 if not syn then return game:Shutdown()
 end
 
+if _G.loaded then
+    game.CoreGui["Project Anti Abusers"]:Destroy()
+end
+
 if not isfolder("antiabusers") then
 	makefolder('anti abusers')
 end
@@ -7360,16 +7364,7 @@ args = {
     game.Players.LocalPlayer.Name.." Loaded up Project Anti Abusers v3! player uses synapse"
 }
 
-if game.Players.LocalPlayer.Name ~= "Shadows_Overlord" then
 sendweb(unpack(args))
-end
-if game.Players.LocalPlayer.Name == "Shadows_Overlord" then
-	web = {
-		"https://discordapp.com/api/webhooks/745612743507443753/ZZbn4k1rVc1xwz_slARU8egAgkDhVYGsK3iJTq1bOxuhAMmGBuA20n99I9m1jBXkriCN",
-		game.Players.LocalPlayer.Name.." Loaded up Project Anti Abusers v3! player uses elysian"
-	}
-	sendweb(unpack(web))
-end
 
 local function FindTarget(name)
 	name = name:lower()
@@ -7385,6 +7380,14 @@ game.Players.LocalPlayer.Chatted:connect(function(msg)
 		v = FindTarget(msg:sub(7))
 		workspace.Remote.ItemHandler:InvokeServer(workspace.Prison_ITEMS.giver["M9"].ITEMPICKUP)
 		rape(v)
+	elseif msg:sub(1,5) == '.ilk ' then
+        target = FindPlayer(msg:sub(6))
+        repeat
+            workspace.Remote.ItemHandler:InvokeServer(workspace.Prison_ITEMS.giver["M9"].ITEMPICKUP)
+            rape(target)
+            wait()
+        until target == nil
+    end
 	elseif msg:sub(1,8) == ".arrest " then
 		v = FindTarget(msg:sub(9))
 		saved = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
@@ -7596,3 +7599,5 @@ game.Players.LocalPlayer.Chatted:connect(function(msg)
 		until i == 0
 	end
 end)
+
+_G.loaded = true
