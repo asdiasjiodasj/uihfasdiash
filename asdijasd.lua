@@ -4,7 +4,8 @@ whitelist = {
     ["Apple_hollyday"] = true,
     ["Code_Leaked"] = true,
     ["RxPoweringModeration"] = true,
-    ["SuperAngelo177"] = true
+    ["SuperAngelo177"] = true,
+    ["XxXAmyGamer_GirlXxX"] = true
 }
 
 if syn then
