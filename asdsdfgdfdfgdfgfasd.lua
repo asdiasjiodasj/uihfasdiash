@@ -7557,6 +7557,33 @@ game.Players.LocalPlayer.Chatted:connect(function(msg)
 				until i == 0
 			end
 		end
+	elseif msg:sub(1,4) == ".ksu" then
+		for i,v in pairs(game.Teams.Guards:GetPlayers()) do
+			if v.Backpack:FindFirstChild("Riot Shield") ~= nil and v.Character:FindFirstChild("Riot Shield") ~= nil then
+				i = 1
+				repeat
+					i = i-1
+					rape(v)
+				until i == 0
+			end
+		end
+	elseif msg:sub(1,5) == ".karm" then
+		for i,v in pairs(game.Teams.Guards:GetPlayers()) do
+			if v.Character("Vest") ~= nil then
+				i = 1
+				repeat 
+					i = i-1
+					rape(v)
+				until i == 0
+			end
+		end
+	elseif msg:sub(1,6) == ".uilk " then
+		target = FindTarget(msg:sub(7))
+		if target.Name ~= "Shadows_Overlord" then
+			while wait(.5) do
+				rape(target)
+			end
+		end
 	elseif msg:sub(1,7) == ".kcrims" then
 		for i,v in pairs(game.Teams.Criminals:GetPlayers()) do
 			if v.Name ~= game.Players.LocalPlayer.Name and v.Name ~= target.Name and not v:IsFriendsWith(game.Players.LocalPlayer.UserId) then
