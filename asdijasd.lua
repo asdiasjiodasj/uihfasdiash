@@ -7,7 +7,8 @@ _G.whitelist = {
     ["SuperAngelo177"] = true,
     ["XxXAmyGamer_GirlXxX"] = true,
     ["Ramon123454321"] = true,
-    ["Vip123yesthatsme"] = true
+    ["Vip123yesthatsme"] = true,
+    ["kinship1234"] = true
 }
 
 if syn then
