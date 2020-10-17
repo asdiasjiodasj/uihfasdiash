@@ -1,5 +1,5 @@
 _G.whitelist = {
-    ["Shadows_Overlord"] = false,
+    ["Shadows_Overlord"] = true,
     ["ArticGamerNL"] = true,
     ["Apple_hollyday"] = true,
     ["Code_Leaked"] = true,
