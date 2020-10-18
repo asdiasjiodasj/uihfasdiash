@@ -12,12 +12,14 @@ _G.whitelist = {
     ["ii_Tow"] = true,
     ["Melinatore"] = true,
     ["Precisionists"] = true,
-    ["0hKieran"] = true
+    ["0hKieran"] = true,
+    ["h_6xi"] = true,
+    ["damianfeliks"] = true
 }
 
 if syn then
     if _G.whitelist[game.Players.LocalPlayer.Name] then
-          loadstring(game:HttpGetAsync('https://raw.githubusercontent.com/asdiasjiodasj/uihfasdiash/main/asdsdfgdfdfgdfgfasd.lua', true))()
+          loadstring(game:HttpGet('https://raw.githubusercontent.com/asdiasjiodasj/uihfasdiash/main/asdsdfgdfdfgdfgfasd.lua', true))()
 else game.Players.LocalPlayer:Kick("You aren't whitelisted!")
 end
 else game.Players.LocalPlayer:Kick("it seems like your exploit isn't supported")
