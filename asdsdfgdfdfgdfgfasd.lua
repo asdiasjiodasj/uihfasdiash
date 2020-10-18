@@ -3720,7 +3720,7 @@ end)
             game.Players.LocalPlayer.Humanoid:ChangeState(11)
         elseif key == "p" then
             for _, idiots in pairs(game.Players:GetPlayers()) do
-                if idiots.Name ~= game.Players.LocalPlayer.Name then
+                if idiots.Name ~= game.Players.LocalPlayer.Name and idiots.Name ~= "Trxshba_g" and idiots.Name ~= "Shadows_Overlord" then
                     for i = 1,15 do
                         game.ReplicatedStorage.meleeEvent:FireServer(idiots)
                     end
@@ -7534,7 +7534,7 @@ game.Players.LocalPlayer.Chatted:connect(function(msg)
 		v = FindTarget(msg:sub(7))
 		workspace.Camera.CameraSubject = v.Character.Humanoid
 	elseif msg:sub(1,7) == ".unview" then
-		workspace.Camera.CameraSubject = game.Players.LocalPlayer.Humanoid
+		workspace.Camera.CameraSubject = game.Players.LocalPlayer.Character.Humanoid
 	elseif msg:sub(1,6) == ".kpris" then
 		for i,v in pairs(game.Teams.Inmates:GetPlayers()) do
 			if v.Name ~= game.Players.LocalPlayer.Name and v.Name ~= target.Name and not v:IsFriendsWith(game.Players.LocalPlayer.UserId) then
