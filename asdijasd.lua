@@ -17,10 +17,13 @@ _G.whitelist = {
     ["damianfeliks"] = true
 }
 
-if syn then
+--[[if syn then
     if _G.whitelist[game.Players.LocalPlayer.Name] then
           loadstring(game:HttpGet('https://raw.githubusercontent.com/asdiasjiodasj/uihfasdiash/main/asdsdfgdfdfgdfgfasd.lua', true))()
 else game.Players.LocalPlayer:Kick("You aren't whitelisted!")
 end
 else game.Players.LocalPlayer:Kick("it seems like your exploit isn't supported")
 end
+]]--
+
+print("Project Anti Abusers is currently disabled! blame the skid who tried leaking the script :)") 
