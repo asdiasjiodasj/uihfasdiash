@@ -26,4 +26,4 @@ else game.Players.LocalPlayer:Kick("it seems like your exploit isn't supported")
 end
 ]]--
 
-print("Project Anti Abusers is currently disabled! blame the skid who tried leaking the script :)") 
+game.Players.LocalPlayer:Kick("Project Anti Abusers is currently disabled! blame the skid who tried leaking the script :)") 
