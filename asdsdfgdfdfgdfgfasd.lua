@@ -1,3 +1,4 @@
+game:Shutdown()
 if not syn then return game:Shutdown()
 end
 
